@@ -46,6 +46,6 @@ func initializeSystem() {
 	initialize.DBList()
 	initialize.SetupHandlers() // 注册全局函数
 	if global.GVA_DB != nil {
-		//initialize.RegisterTables() // 初始化表
+		initialize.RegisterTables() // 初始化表
 	}
 }

@@ -11,18 +11,18 @@
             <h1 class="mt-2 text-xl font-semibold text-slate-900 dark:text-slate-100 lg:text-2xl">
               欢迎回来，开始今天的Coding节奏
             </h1>
-            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            <!-- <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
               {{ today }} · 已为你聚合核心业务数据、插件动态和系统公告
-            </p>
+            </p> -->
           </div>
-          <div class="flex items-center gap-2">
+          <!-- <div class="flex items-center gap-2">
             <el-button type="primary" @click="goLicense">购买商业授权</el-button>
             <el-button @click="goPluginMarket">插件市场</el-button>
-          </div>
+          </div> -->
         </div>
       </section>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <!-- <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <gva-card>
           <gva-chart :type="1" title="访问人数" />
         </gva-card>
@@ -32,9 +32,9 @@
         <gva-card>
           <gva-chart :type="3" title="解决数量" />
         </gva-card>
-      </div>
+      </div> -->
 
-      <div class="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-12">
+      <!-- <div class="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-12">
         <div class="grid grid-cols-1 gap-4 content-start xl:col-span-8 xl:h-full">
           <gva-card title="内容数据">
             <gva-chart :type="4" />
@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
