@@ -142,8 +142,8 @@ mysql:
     config: charset=utf8mb4&parseTime=True&loc=Local
     db-name: lanwang
     username: root
-    password: root
-    path: 127.0.0.1
+    password: Root!123
+    path: 8.138.217.221
     engine: ""
     log-mode: error
     max-idle-conns: 10

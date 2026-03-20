@@ -1,3 +1,6 @@
 package bi
 
-type ServiceGroup struct{ ClassRecordService }
+type ServiceGroup struct {
+	ClassRecordService
+	StudentService
+}
