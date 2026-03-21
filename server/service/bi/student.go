@@ -2,6 +2,7 @@ package bi
 
 import (
 	"context"
+
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/bi"
 	biReq "github.com/flipped-aurora/gin-vue-admin/server/model/bi/request"
@@ -93,7 +94,7 @@ func (studentService *StudentService) GetStudentInfoList(ctx context.Context, in
 		db = db.Limit(limit).Offset(offset)
 	}
 
-	err = db.Find(&students).Error
+	err = db.Order("ID desc").Find(&students).Error
 	return students, total, err
 }
 func (studentService *StudentService) GetStudentPublic(ctx context.Context) {

@@ -81,7 +81,7 @@ func (classService *ClassService) GetClassInfoList(ctx context.Context, info biR
 		db = db.Limit(limit).Offset(offset)
 	}
 
-	err = db.Preload("Students").Find(&classs).Error
+	err = db.Order("ID desc").Preload("Students").Find(&classs).Error
 	return classs, total, err
 }
 func (classService *ClassService) GetClassPublic(ctx context.Context) {
