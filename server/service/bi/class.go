@@ -49,7 +49,7 @@ func (classService *ClassService) UpdateClass(ctx context.Context, class bi.Clas
 // GetClass 根据ID获取班级记录
 // Author [yourname](https://github.com/yourname)
 func (classService *ClassService) GetClass(ctx context.Context, ID string) (class bi.Class, err error) {
-	err = global.GVA_DB.Where("id = ?", ID).First(&class).Error
+	err = global.GVA_DB.Preload("Students").Where("id = ?", ID).First(&class).Error
 	return
 }
 

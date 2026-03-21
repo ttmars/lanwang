@@ -66,6 +66,12 @@
         
             <el-table-column align="left" label="班级名称" prop="name" width="120" />
 
+            <el-table-column align="left" label="学生" prop="students" width="200">
+              <template #default="scope">
+                {{ scope.row.students ? scope.row.students.filter(s => s && s.name).map(s => s.name).join(', ') : '' }}
+              </template>
+            </el-table-column>
+
             <el-table-column align="left" label="备注" prop="remark" width="120" />
 
         <el-table-column align="left" label="操作" fixed="right" :min-width="appStore.operateMinWith">
@@ -103,6 +109,11 @@
             <el-form-item label="班级名称:" prop="name">
     <el-input v-model="formData.name" :clearable="true" placeholder="请输入班级名称" />
 </el-form-item>
+            <el-form-item label="学生:" prop="students">
+              <el-select v-model="formData.students" multiple placeholder="请选择学生">
+                <el-option v-for="item in studentOptions" :key="item.value" :label="item.label" :value="item.value" />
+              </el-select>
+            </el-form-item>
             <el-form-item label="备注:" prop="remark">
     <el-input v-model="formData.remark" :clearable="true" placeholder="请输入备注" />
 </el-form-item>
@@ -113,6 +124,9 @@
             <el-descriptions :column="1" border>
                     <el-descriptions-item label="班级名称">
     {{ detailForm.name }}
+</el-descriptions-item>
+                    <el-descriptions-item label="学生">
+    {{ detailForm.students ? detailForm.students.filter(s => s && s.name).map(s => s.name).join(', ') : '' }}
 </el-descriptions-item>
                     <el-descriptions-item label="备注">
     {{ detailForm.remark }}
@@ -132,6 +146,7 @@ import {
   findClass,
   getClassList
 } from '@/api/bi/class'
+import { getStudentList } from '@/api/bi/student'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict ,filterDataSource, returnArrImg, onDownloadFile } from '@/utils/format'
@@ -157,7 +172,11 @@ const showAllQuery = ref(false)
 const formData = ref({
             name: '',
             remark: '',
+            students: [],
         })
+
+const studentOptions = ref([])
+const studentMap = ref({})
 
 
 
@@ -218,6 +237,14 @@ getTableData()
 
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async () =>{
+  const res = await getStudentList({ page: 1, pageSize: 1000 })
+  if (res.code === 0) {
+    studentOptions.value = res.data.list.map(s => ({ label: s.name, value: s.ID }))
+    studentMap.value = res.data.list.reduce((map, s) => {
+      map[s.ID] = s.name
+      return map
+    }, {})
+  }
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -284,6 +311,7 @@ const updateClassFunc = async(row) => {
     type.value = 'update'
     if (res.code === 0) {
         formData.value = res.data
+        formData.value.students = res.data.students ? res.data.students.filter(s => s && s.ID).map(s => s.ID) : []
         dialogFormVisible.value = true
     }
 }
@@ -319,6 +347,7 @@ const closeDialog = () => {
     formData.value = {
         name: '',
         remark: '',
+        students: [],
         }
 }
 // 弹窗确定
@@ -326,16 +355,20 @@ const enterDialog = async () => {
      btnLoading.value = true
      elFormRef.value?.validate( async (valid) => {
              if (!valid) return btnLoading.value = false
+              const data = {
+                ...formData.value,
+                students: formData.value.students.filter(id => id).map(id => ({ id }))
+              }
               let res
               switch (type.value) {
                 case 'create':
-                  res = await createClass(formData.value)
+                  res = await createClass(data)
                   break
                 case 'update':
-                  res = await updateClass(formData.value)
+                  res = await updateClass(data)
                   break
                 default:
-                  res = await createClass(formData.value)
+                  res = await createClass(data)
                   break
               }
               btnLoading.value = false
