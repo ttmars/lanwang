@@ -1,7 +1,11 @@
 {
   "/src/view/about/index.vue": "About",
+  "/src/view/bi/class/class.vue": "Class",
+  "/src/view/bi/class/classForm.vue": "ClassForm",
   "/src/view/bi/classRecord/classRecord.vue": "ClassRecord",
   "/src/view/bi/classRecord/classRecordForm.vue": "ClassRecordForm",
+  "/src/view/bi/student/student.vue": "Student",
+  "/src/view/bi/student/studentForm.vue": "StudentForm",
   "/src/view/dashboard/components/banner.vue": "Banner",
   "/src/view/dashboard/components/card.vue": "Card",
   "/src/view/dashboard/components/charts-content-numbers.vue": "ChartsContentNumbers",
